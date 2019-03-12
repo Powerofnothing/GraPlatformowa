@@ -18,37 +18,47 @@ public class Player {
 	public static void update() {
 		//fall
 		if (!Game.currentMap.getTileByXY(Math.floor(x), Math.floor(y) + texture.getHeight()).isSolid() && !Game.currentMap.getTileByXY(Math.floor(x) - 1 + texture.getWidth(), Math.floor(y) + texture.getHeight()).isSolid()) {
-			if (vy < 2)
-				vy += 1;
+			if (vy < 3)
+				vy += 0.2;
 		}
 		//jump
 		if (Game.currentMap.getTileByXY(Math.floor(x), Math.floor(y) + texture.getHeight()).isSolid() || Game.currentMap.getTileByXY(Math.floor(x) - 1 + texture.getWidth(), Math.floor(y) + texture.getHeight()).isSolid()) {
 			vy = 0;
 			if (Game.km.up == true) {
-				vy = -10;
+				vy = -4;
 			}
 		}
+		//dont hit ur head
 		if (Game.currentMap.getTileByXY(Math.floor(x), Math.floor(y) + vy).isSolid() || Game.currentMap.getTileByXY(Math.floor(x) - 1 + texture.getWidth(), y + vy).isSolid()) {
 			vy = 0;
 		}
+		//
+		if ( vy > 0 ) {
+			while (Game.currentMap.getTileByXY(Math.floor(x), (y + vy) + texture.getHeight() - 1).isSolid() || Game.currentMap.getTileByXY(Math.floor(x) - 1 + texture.getWidth(), (y+vy) + texture.getHeight() - 1).isSolid()) {
+				vy = 0.2;
+			}
+		}
 		//right
 		if (Game.km.right)
-			if (vx < 2)
+			if (vx < 1.6)
 				vx += 0.2;
 		if (Game.currentMap.getTileByXY(Math.floor(x) + vx + texture.getWidth(), y).isSolid() || Game.currentMap.getTileByXY(Math.floor(x) + vx + texture.getWidth(), Math.floor(y) - 2 + texture.getHeight()).isSolid()) {
 			if (vx > 0)
 				vx = 0;
 		}
+		//left
 		if (Game.km.left)
-			if (vx > -2)
+			if (vx > -1.6)
 				vx -= 0.2;
 		if (Game.currentMap.getTileByXY(Math.floor(x) + vx, y).isSolid() || Game.currentMap.getTileByXY(Math.floor(x) + vx, Math.floor(y) - 2 + texture.getHeight()).isSolid()) {
 			if (vx < 0)
 				vx = 0;
 		}
+		//stop
 		if (!Game.km.left && !Game.km.right) {
 			vx = 0;
 		}
+		//move
 		x += vx;
 		y += vy;
 	}
