@@ -16,21 +16,16 @@ public class Player {
 	}
 
 	public static void update() {
-		if (y - vy < 1) {
-			vy = 0;
-			y += 1;
-			return;
-		}
 		//fall
 		if (!Game.currentMap.getTileByXY(Math.floor(x), Math.floor(y) + texture.getHeight()).isSolid() && !Game.currentMap.getTileByXY(Math.floor(x) - 1 + texture.getWidth(), Math.floor(y) + texture.getHeight()).isSolid()) {
 			if (vy < 2)
-				vy += 0.5;
+				vy += 1;
 		}
 		//jump
 		if (Game.currentMap.getTileByXY(Math.floor(x), Math.floor(y) + texture.getHeight()).isSolid() || Game.currentMap.getTileByXY(Math.floor(x) - 1 + texture.getWidth(), Math.floor(y) + texture.getHeight()).isSolid()) {
 			vy = 0;
 			if (Game.km.up == true) {
-				vy = -7;
+				vy = -10;
 			}
 		}
 		if (Game.currentMap.getTileByXY(Math.floor(x), Math.floor(y) + vy).isSolid() || Game.currentMap.getTileByXY(Math.floor(x) - 1 + texture.getWidth(), y + vy).isSolid()) {
