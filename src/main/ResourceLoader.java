@@ -27,16 +27,8 @@ public class ResourceLoader {
 	}
 
 	public static Scanner loadMap(String path) {
-		try {
-			Scanner s = new Scanner(new File(ResourceLoader.class.getResource(path).toURI()));
-			return s;
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch(IOException e) {
-			e.printStackTrace();
-		} catch (URISyntaxException e) {
-			e.printStackTrace();
-		} return null;
+		Scanner s = new Scanner(ResourceLoader.class.getResourceAsStream(path));
+		return s;
 	}
 
 }
