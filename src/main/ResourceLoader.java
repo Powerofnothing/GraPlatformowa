@@ -1,17 +1,8 @@
 package main;
 
-import sun.misc.ClassLoaderUtil;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ResourceLoader {
