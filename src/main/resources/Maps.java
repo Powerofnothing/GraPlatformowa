@@ -10,7 +10,8 @@ public class Maps {
 
 	public static void init() {
 		maps = new ArrayList<>();
-		maps.add(new Map("Standard", 0, "/maps/map1.txt"));
+		maps.add(new Map("Map0", 0, "/maps/map0"));
+		maps.add(new Map("Map1", 1, "/maps/map1"));
 	}
 
 	public static Map getMap(int id) {

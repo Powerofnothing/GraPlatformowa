@@ -1,16 +1,14 @@
 package main;
 
-import main.entities.Creatures;
-import main.entities.Player;
-import main.entities.Projectiles;
+import main.entities.*;
+import main.entities.Character;
 import main.graphics.Display;
 import main.input.KeyManager;
-import main.resources.Map;
-import main.resources.Maps;
-import main.resources.Tiles;
+import main.resources.*;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
+import java.util.ArrayList;
 
 public class Game implements Runnable {
 
@@ -24,32 +22,42 @@ public class Game implements Runnable {
 
 	public static int width, height, scale;
 	public static KeyManager km;
-	public static Map currentMap = null;
-	public static Player currentPlayer = null;
 
+	public static Level currentLevel;
+	public static Map currentMap;
+	public static Character currentCharacter;
 
-	public Game(int w, int h, int s) {
+	Game(int w, int h, int s) {
 		width = w;
 		height = h;
 		scale = s;
 	}
 
 	private void init() {
+
 		display = new Display(width, height);
 		km = new KeyManager();
 		display.getFrame().addKeyListener(km);
+
 		Tiles.init();
 		Creatures.init();
 		Projectiles.init();
 		Maps.init();
-		currentPlayer = new Player(100, 100, "/textures/player.png");
-		currentMap = Maps.getMap(0);
+		Characters.init();
+		Levels.init();
+
+		currentLevel = Levels.getLevel(0);
+		Creatures.spawn(currentLevel.getCreaturesId());
+		currentMap = Maps.getMap(currentLevel.getMapId());
+		currentCharacter = Characters.getCharacter(currentLevel.getCharacterId());
 	}
 
 	private void update() {
 		km.update();
+
 		currentMap.update();
-		currentPlayer.update();
+		currentCharacter.update();
+		Creatures.update();
 		Projectiles.update();
 	}
 
@@ -64,7 +72,8 @@ public class Game implements Runnable {
 		// draw here
 
 		currentMap.draw(g);
-		currentPlayer.draw(g);
+		currentCharacter.draw(g);
+		Creatures.draw(g);
 		Projectiles.draw(g);
 
 		// draw here

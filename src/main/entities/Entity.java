@@ -15,7 +15,7 @@ public class Entity {
 	}
 
 	// 0 - N, 1 - E, 2 - S, 3 - W
-	public boolean checkCollision(int dir, double vx, double vy) {
+	boolean checkMapCollision(int dir, double vx, double vy) {
 		switch (dir) {
 			case 0:
 				if (Game.currentMap.getTileByXY(Math.floor(getX()), Math.floor(getY()) + vy).isSolid() || Game.currentMap.getTileByXY(Math.floor(getX()) - 1 + getTexture().getWidth(), getY() + vy).isSolid()) {
@@ -41,11 +41,11 @@ public class Entity {
 		return false;
 	}
 
-	public void setTexture(BufferedImage texture) {
+	void setTexture(BufferedImage texture) {
 		this.texture = texture;
 	}
 
-	public BufferedImage getTexture() {
+	BufferedImage getTexture() {
 		return texture;
 	}
 
@@ -53,15 +53,15 @@ public class Entity {
 		return x;
 	}
 
-	public double getY() {
+	double getY() {
 		return y;
 	}
 
-	public void setX(double x) {
+	void setX(double x) {
 		this.x = x;
 	}
 
-	public void setY(double y) {
+	void setY(double y) {
 		this.y = y;
 	}
 

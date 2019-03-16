@@ -17,7 +17,7 @@ public class ResourceLoader {
 		return null;
 	}
 
-	static Scanner loadMap(String path) {
+	static Scanner loadTxt(String path) {
 		Scanner s = new Scanner(ResourceLoader.class.getResourceAsStream(path));
 		return s;
 	}
