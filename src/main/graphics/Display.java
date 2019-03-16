@@ -1,4 +1,6 @@
-package main;
+package main.graphics;
+
+import main.Game;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,7 +9,6 @@ public class Display {
 
 	private JFrame frame;
 	private Canvas canvas;
-
 	private String title = "GraPlatformowa";
 	private int width, height;
 

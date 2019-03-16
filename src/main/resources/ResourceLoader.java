@@ -1,4 +1,4 @@
-package main;
+package main.resources;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -17,7 +17,7 @@ public class ResourceLoader {
 		return null;
 	}
 
-	public static Scanner loadMap(String path) {
+	static Scanner loadMap(String path) {
 		Scanner s = new Scanner(ResourceLoader.class.getResourceAsStream(path));
 		return s;
 	}

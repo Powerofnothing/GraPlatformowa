@@ -1,5 +1,14 @@
 package main;
 
+import main.entities.Creatures;
+import main.entities.Player;
+import main.entities.Projectiles;
+import main.graphics.Display;
+import main.input.KeyManager;
+import main.resources.Map;
+import main.resources.Maps;
+import main.resources.Tiles;
+
 import java.awt.*;
 import java.awt.image.BufferStrategy;
 
@@ -16,12 +25,13 @@ public class Game implements Runnable {
 	public static int width, height, scale;
 	public static KeyManager km;
 	public static Map currentMap = null;
+	public static Player currentPlayer = null;
 
 
-	public Game(int widthh, int heightt, int scalee) {
-		width = widthh;
-		height = heightt;
-		scale = scalee;
+	public Game(int w, int h, int s) {
+		width = w;
+		height = h;
+		scale = s;
 	}
 
 	private void init() {
@@ -29,15 +39,18 @@ public class Game implements Runnable {
 		km = new KeyManager();
 		display.getFrame().addKeyListener(km);
 		Tiles.init();
+		Creatures.init();
+		Projectiles.init();
 		Maps.init();
-		Player.init();
+		currentPlayer = new Player(100, 100, "/textures/player.png");
 		currentMap = Maps.getMap(0);
 	}
 
 	private void update() {
 		km.update();
-		Player.update();
-		Maps.update();
+		currentMap.update();
+		currentPlayer.update();
+		Projectiles.update();
 	}
 
 	private void render() {
@@ -50,8 +63,9 @@ public class Game implements Runnable {
 		g.clearRect(0, 0, width * scale, height * scale);
 		// draw here
 
-		Maps.draw(g);
-		Player.draw(g);
+		currentMap.draw(g);
+		currentPlayer.draw(g);
+		Projectiles.draw(g);
 
 		// draw here
 		bs.show();
