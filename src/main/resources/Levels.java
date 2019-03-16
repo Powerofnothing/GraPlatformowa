@@ -1,5 +1,11 @@
 package main.resources;
 
+import main.Game;
+import main.entities.Character;
+import main.entities.Characters;
+import main.entities.Creature;
+import main.entities.Creatures;
+
 import java.util.ArrayList;
 
 public class Levels {
@@ -18,6 +24,17 @@ public class Levels {
 			}
 		}
 		return null;
+	}
+
+	public static void changeLevel(int id) {
+		Game.currentLevel = Levels.getLevel(id);
+		for(Creature creature : Creatures.creatures)
+			Creatures.removeCreature(creature);
+		Characters.reset(Game.currentLevel.getCharacterId());
+		Creatures.spawn(Game.currentLevel.getCreaturesId());
+		Game.currentMap = Maps.getMap(Game.currentLevel.getMapId());
+		Game.currentMap.setOffSetX(0);
+		Game.currentCharacter = Characters.getCharacter(Game.currentLevel.getCharacterId());
 	}
 
 }

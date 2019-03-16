@@ -79,4 +79,8 @@ public class Map {
 	public int getOffsetX() {
 		return offsetX;
 	}
+
+	public void setOffSetX(int i) {
+		offsetX = i;
+	}
 }

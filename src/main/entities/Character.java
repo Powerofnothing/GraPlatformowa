@@ -1,6 +1,7 @@
 package main.entities;
 
 import main.Game;
+import main.resources.Levels;
 import main.resources.ResourceLoader;
 
 public class Character extends Entity {
@@ -8,9 +9,13 @@ public class Character extends Entity {
 	private int id;
 	private double vx, vy;
 	private int shootingCooldown = 60; //TICKS
+	private int hp;
+	private int maxHp;
 
-	public Character(int id, int x, int y, String path) {
+	public Character(int id, int hp, int x, int y, String path) {
 		this.id = id;
+		this.hp = hp;
+		this.maxHp = hp;
 		setTexture(ResourceLoader.loadImage(path));
 		setX(x);
 		setY(y);
@@ -65,9 +70,27 @@ public class Character extends Entity {
 		}
 		if (shootingCooldown > 0)
 			shootingCooldown--;
+
+		//isDead
+		if (hp <= 0) {
+			Levels.changeLevel(Game.currentLevel.getId());
+		}
 	}
 
 	public int getId() {
 		return id;
+	}
+
+	public int getHp() {
+		return hp;
+	}
+
+	public void setHp(int hp) {
+		this.hp = hp;
+		System.out.println("Player's hp = " + hp);
+	}
+
+	public int getMaxHp() {
+		return maxHp;
 	}
 }

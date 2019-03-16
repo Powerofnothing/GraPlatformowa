@@ -7,9 +7,11 @@ class Projectile extends Entity {
 	private int id;
 	private double vx, range;
 	private int damage = 50;
+	private int type = 1; // 0 - ignores player, 1 - ignores creatures
 
-	Projectile(int id, int damage, double vx, double range, String path) {
+	Projectile(int id, int type, int damage, double vx, double range, String path) {
 		this.id = id;
+		this.type = type;
 		this.vx = vx;
 		this.range = range;
 		this.damage = damage;
@@ -18,6 +20,7 @@ class Projectile extends Entity {
 
 	Projectile(int id) {
 		this.id = Projectiles.getProjectileFromList(id).getId();
+		this.type = Projectiles.getProjectileFromList(id).getType();
 		this.vx = Projectiles.getProjectileFromList(id).getVx();
 		this.range = Projectiles.getProjectileFromList(id).getRange();
 		this.damage = Projectiles.getProjectileFromList(id).getDamage();
@@ -29,16 +32,29 @@ class Projectile extends Entity {
 			range = -1;
 		} else {
 			setX(getX() + vx);
-			range -= vx;
+			range -= Math.abs(vx);
 		}
-		for (Creature creature : Creatures.creatures) {
-			if ((getY() >= creature.getY() + creature.getTexture().getHeight() - 1) || (getY() + getTexture().getHeight() - 1 <= creature.getY()))
-				creature = null;
-			else if ((getX() + getTexture().getWidth() - 1 <= creature.getX()) || (getX() >= creature.getX() + creature.getTexture().getWidth() - 1))
-				creature = null;
-			if (creature != null) {
-				range = -1;
-				creature.setHp(creature.getHp() - damage);
+		if (type == 0) {
+			for (Creature creature : Creatures.creatures) {
+				if ((getY() >= creature.getY() + creature.getTexture().getHeight() - 1) || (getY() + getTexture().getHeight() - 1 <= creature.getY()))
+					creature = null;
+				else if ((getX() + getTexture().getWidth() - 1 <= creature.getX()) || (getX() >= creature.getX() + creature.getTexture().getWidth() - 1))
+					creature = null;
+				if (creature != null) {
+					range = -1;
+					creature.setHp(creature.getHp() - damage);
+				}
+			}
+		} else if (type == 1) {
+			for( Character character : Characters.characters) {
+				if ((getY() >= character.getY() + character.getTexture().getHeight() - 1) || (getY() + getTexture().getHeight() - 1 <= character.getY()))
+					character = null;
+				else if ((getX() + getTexture().getWidth() - 1 <= character.getX()) || (getX() >= character.getX() + character.getTexture().getWidth() - 1))
+					character = null;
+				if (character != null) {
+					range = -1;
+					character.setHp(character.getHp() - damage);
+				}
 			}
 		}
 		if (range < 0) {
@@ -64,5 +80,9 @@ class Projectile extends Entity {
 
 	private int getDamage() {
 		return damage;
+	}
+
+	int getType() {
+		return type;
 	}
 }

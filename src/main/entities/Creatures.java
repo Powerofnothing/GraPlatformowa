@@ -6,15 +6,15 @@ import java.util.ArrayList;
 public class Creatures {
 
 	private static ArrayList<Creature> creaturesList;
-	static ArrayList<Creature> creatures;
+	public static ArrayList<Creature> creatures;
 	private static ArrayList<Creature> creaturesToRemove;
 
 	public static void init() {
 		creaturesList = new ArrayList<>();
 		creatures = new ArrayList<>();
 		creaturesToRemove = new ArrayList<>();
-		creaturesList.add(new Creature(0, 100, 59, 150, 100, 1.5, "/textures/enemy1.png"));
-		creaturesList.add(new Creature( 1, 500, 850, 880, 50, 0.2, "/textures/boss1.png"));
+		creaturesList.add(new Creature(0, 100, 13 * 16 + 1, 14 * 16 + 1, 50, 1.5, 1, 120, "/textures/enemy1.png"));
+		creaturesList.add(new Creature(1, 500, 850, 850, 50, 0, 1, 60, "/textures/boss1.png"));
 	}
 
 	public static void update() {
@@ -28,7 +28,7 @@ public class Creatures {
 			creature.draw(g);
 	}
 
-	static void removeCreature(Creature c) {
+	public static void removeCreature(Creature c) {
 		for (Creature creature : creatures)
 			if (creature.hashCode() == c.hashCode())
 				creaturesToRemove.add(c);
@@ -47,7 +47,7 @@ public class Creatures {
 
 	public static void spawn(ArrayList<Integer> creaturesId) {
 		creatures.removeAll(creatures);
-		for( Integer i : creaturesId ) {
+		for (Integer i : creaturesId) {
 			newCreature(i);
 		}
 	}

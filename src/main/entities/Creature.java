@@ -8,13 +8,18 @@ public class Creature extends Entity {
 	private int id;
 	private double x1, x2, vx, vy;
 	private int hp;
+	private int projectileId;
+	private int shootingCooldown;
+	private int shootingTimer;
 
-	Creature(int id, int hp, double x1, double x2, double y, double vx, String path) {
+	Creature(int id, int hp, double x1, double x2, double y, double vx, int projectileId, int shootingCooldown, String path) {
 		this.id = id;
 		this.x1 = x1;
 		this.x2 = x2;
 		this.vx = vx;
 		this.hp = hp;
+		this.projectileId = projectileId;
+		this.shootingCooldown = shootingCooldown;
 		setX(x1);
 		setY(y);
 		setTexture(ResourceLoader.loadImage(path));
@@ -26,6 +31,8 @@ public class Creature extends Entity {
 		this.x2 = Creatures.getCreatureFromList(id).getX2();
 		this.vx = Creatures.getCreatureFromList(id).getVx();
 		this.hp = Creatures.getCreatureFromList(id).getHp();
+		this.projectileId = Creatures.getCreatureFromList(id).getProjectileId();
+		this.shootingCooldown = Creatures.getCreatureFromList(id).getShootingCooldown();
 		setX(Creatures.getCreatureFromList(id).getX());
 		setY(Creatures.getCreatureFromList(id).getY());
 		setTexture(Creatures.getCreatureFromList(id).getTexture());
@@ -46,7 +53,17 @@ public class Creature extends Entity {
 		}
 		setX(getX() + vx);
 		setY(getY() + vy);
-		if( hp <= 0)
+		if (shootingTimer <= 0) {
+			shootingTimer += shootingCooldown;
+			if (Game.currentCharacter.getX() < this.getX()) {
+				Projectiles.newProjectile(projectileId, -1, getX() + (getTexture().getWidth() >> 1), getY() + (getTexture().getHeight() >> 1));
+			} else {
+				Projectiles.newProjectile(projectileId, 1, getX() + (getTexture().getWidth() >> 1), getY() + (getTexture().getHeight() >> 1));
+			}
+		}
+		if (shootingTimer > 0)
+			shootingTimer--;
+		if (hp <= 0)
 			Creatures.removeCreature(this);
 	}
 
@@ -72,5 +89,13 @@ public class Creature extends Entity {
 
 	private double getVx() {
 		return vx;
+	}
+
+	private int getProjectileId() {
+		return projectileId;
+	}
+
+	private int getShootingCooldown() {
+		return shootingCooldown;
 	}
 }

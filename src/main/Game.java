@@ -3,6 +3,7 @@ package main;
 import main.entities.*;
 import main.entities.Character;
 import main.graphics.Display;
+import main.graphics.Hud;
 import main.input.KeyManager;
 import main.resources.*;
 
@@ -46,10 +47,7 @@ public class Game implements Runnable {
 		Characters.init();
 		Levels.init();
 
-		currentLevel = Levels.getLevel(0);
-		Creatures.spawn(currentLevel.getCreaturesId());
-		currentMap = Maps.getMap(currentLevel.getMapId());
-		currentCharacter = Characters.getCharacter(currentLevel.getCharacterId());
+		Levels.changeLevel(0);
 	}
 
 	private void update() {
@@ -75,6 +73,7 @@ public class Game implements Runnable {
 		currentCharacter.draw(g);
 		Creatures.draw(g);
 		Projectiles.draw(g);
+		Hud.drawHUD(g);
 
 		// draw here
 		bs.show();

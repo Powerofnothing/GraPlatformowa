@@ -6,7 +6,7 @@ public class Main {
 
 		Game game;
 		if (args.length == 0) {
-			game = new Game(384, 240, 2);
+			game = new Game(384, 240, 3);
 		} else if (args.length == 1) {
 			game = new Game(384, 240, Integer.parseInt(args[0]));
 		} else {
