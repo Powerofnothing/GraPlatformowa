@@ -33,6 +33,7 @@ public class Creature extends Entity {
 		this.hp = Creatures.getCreatureFromList(id).getHp();
 		this.projectileId = Creatures.getCreatureFromList(id).getProjectileId();
 		this.shootingCooldown = Creatures.getCreatureFromList(id).getShootingCooldown();
+		this.shootingTimer = shootingCooldown;
 		setX(Creatures.getCreatureFromList(id).getX());
 		setY(Creatures.getCreatureFromList(id).getY());
 		setTexture(Creatures.getCreatureFromList(id).getTexture());
@@ -55,7 +56,7 @@ public class Creature extends Entity {
 		setY(getY() + vy);
 		if (shootingTimer <= 0) {
 			shootingTimer += shootingCooldown;
-			if (Game.currentCharacter.getX() < this.getX()) {
+			if (Game.player.getX() < this.getX()) {
 				Projectiles.newProjectile(projectileId, -1, getX() + (getTexture().getWidth() >> 1), getY() + (getTexture().getHeight() >> 1));
 			} else {
 				Projectiles.newProjectile(projectileId, 1, getX() + (getTexture().getWidth() >> 1), getY() + (getTexture().getHeight() >> 1));

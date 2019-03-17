@@ -1,8 +1,9 @@
 package main.entities;
 
+import main.Game;
 import main.resources.ResourceLoader;
 
-class Projectile extends Entity {
+public class Projectile extends Entity {
 
 	private int id;
 	private double vx, range;
@@ -46,16 +47,16 @@ class Projectile extends Entity {
 				}
 			}
 		} else if (type == 1) {
-			for( Character character : Characters.characters) {
-				if ((getY() >= character.getY() + character.getTexture().getHeight() - 1) || (getY() + getTexture().getHeight() - 1 <= character.getY()))
-					character = null;
-				else if ((getX() + getTexture().getWidth() - 1 <= character.getX()) || (getX() >= character.getX() + character.getTexture().getWidth() - 1))
-					character = null;
-				if (character != null) {
-					range = -1;
-					character.setHp(character.getHp() - damage);
-				}
+			boolean temp = true;
+			if ((getY() >= Game.player.getY() + Game.player.getTexture().getHeight() - 1) || (getY() + getTexture().getHeight() - 1 <= Game.player.getY()))
+				temp = false;
+			else if ((getX() + getTexture().getWidth() - 1 <= Game.player.getX()) || (getX() >= Game.player.getX() + Game.player.getTexture().getWidth() - 1))
+				temp = false;
+			if (temp) {
+				range = -1;
+				Game.player.setHp(Game.player.getHp() - damage);
 			}
+
 		}
 		if (range < 0) {
 			Projectiles.removeProjectile(this);

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Projectiles {
 
 	private static ArrayList<Projectile> projectilesList;
-	private static ArrayList<Projectile> projectiles;
+	public static ArrayList<Projectile> projectiles;
 	private static ArrayList<Projectile> projectilesToRemove;
 
 	public static void init() {
@@ -28,7 +28,7 @@ public class Projectiles {
 			projectile.draw(g);
 	}
 
-	static void removeProjectile(Projectile p) {
+	public static void removeProjectile(Projectile p) {
 		for (Projectile projectile : projectiles)
 			if (projectile.hashCode() == p.hashCode())
 				projectilesToRemove.add(p);

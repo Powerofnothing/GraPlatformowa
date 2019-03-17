@@ -1,11 +1,8 @@
 package main.resources;
 
 import main.Game;
-import main.entities.Creature;
-import main.entities.Creatures;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Map {
@@ -18,6 +15,7 @@ public class Map {
 	private Tile[][] tiles;
 	private int offsetX;
 	private int maxoffsetX;
+	private int playerX, playerY;
 
 	Map(String name, int id, String path) {
 		this.name = name;
@@ -35,16 +33,18 @@ public class Map {
 		for (int y = 0; y < height; y++)
 			for (int x = 0; x < width; x++)
 				tiles[x][y] = Tiles.getTile(in.nextInt());
+		playerX = in.nextInt();
+		playerY = in.nextInt();
 	}
 
 	public void update() {
-		if ((Game.currentCharacter.getX() - offsetX > Game.width * 0.35) && (offsetX < maxoffsetX))
-			if (Game.currentCharacter.getX() - offsetX > Game.width * 0.5)
+		if ((Game.player.getX() - offsetX > Game.width * 0.35) && (offsetX < maxoffsetX))
+			if (Game.player.getX() - offsetX > Game.width * 0.5)
 				offsetX += 2;
 			else
 				offsetX += 1;
-		if ((Game.currentCharacter.getX() - offsetX < Game.width * 0.3) && (offsetX > 0))
-			if (Game.currentCharacter.getX() - offsetX < Game.width * 0.15)
+		if ((Game.player.getX() - offsetX < Game.width * 0.3) && (offsetX > 0))
+			if (Game.player.getX() - offsetX < Game.width * 0.15)
 				offsetX -= 2;
 			else
 				offsetX -= 1;
@@ -82,5 +82,13 @@ public class Map {
 
 	public void setOffSetX(int i) {
 		offsetX = i;
+	}
+
+	public int getPlayerX() {
+		return playerX;
+	}
+
+	public int getPlayerY() {
+		return playerY;
 	}
 }

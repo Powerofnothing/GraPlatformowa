@@ -4,25 +4,29 @@ import main.Game;
 import main.resources.Levels;
 import main.resources.ResourceLoader;
 
-public class Character extends Entity {
+public class Player extends Entity {
 
-	private int id;
 	private double vx, vy;
 	private int shootingCooldown = 60; //TICKS
-	private int hp;
-	private int maxHp;
+	private int hp, maxHp;
 
-	public Character(int id, int hp, int x, int y, String path) {
-		this.id = id;
-		this.hp = hp;
-		this.maxHp = hp;
-		setTexture(ResourceLoader.loadImage(path));
-		setX(x);
-		setY(y);
+	public Player() {
+		this.maxHp = 100;
+		this.hp = maxHp;
+		setX(0);
+		setY(0);
+		setTexture(ResourceLoader.loadImage("/textures/player.png"));
+	}
+
+	public void reset(int x, int y) {
+		hp = maxHp;
+		vx = 0;
+		vy = 0;
+		setX((double) x);
+		setY((double) y);
 	}
 
 	public void update() {
-
 		//fall
 		if (!checkMapCollision(2, vx, vy) && vy < 3)
 			vy += 0.2;
@@ -75,10 +79,6 @@ public class Character extends Entity {
 		if (hp <= 0) {
 			Levels.changeLevel(Game.currentLevel.getId());
 		}
-	}
-
-	public int getId() {
-		return id;
 	}
 
 	public int getHp() {

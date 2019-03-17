@@ -11,11 +11,10 @@ public class Level {
 	private int id;
 	private String name;
 	private int mapId;
-	private int characterId;
 	private ArrayList<Integer> creaturesId;
 	private String path;
 
-	public Level(int id, String path) {
+	Level(int id, String path) {
 		this.id = id;
 		this.path = path;
 		creaturesId = new ArrayList<>();
@@ -31,8 +30,6 @@ public class Level {
 					this.name = in.next();
 				else if (s.equals("map"))
 					mapId = in.nextInt();
-				else if (s.equals("character"))
-					characterId = in.nextInt();
 				else if (s.equals("creature"))
 					creaturesId.add(in.nextInt());
 				s = in.next();
@@ -46,10 +43,6 @@ public class Level {
 		return id;
 	}
 
-	public int getCharacterId() {
-		return characterId;
-	}
-
 	public ArrayList<Integer> getCreaturesId() {
 		return creaturesId;
 	}
@@ -57,7 +50,6 @@ public class Level {
 	public int getMapId() {
 		return mapId;
 	}
-
 
 
 }

@@ -1,7 +1,7 @@
 package main;
 
 import main.entities.*;
-import main.entities.Character;
+import main.entities.Player;
 import main.graphics.Display;
 import main.graphics.Hud;
 import main.input.KeyManager;
@@ -9,7 +9,6 @@ import main.resources.*;
 
 import java.awt.*;
 import java.awt.image.BufferStrategy;
-import java.util.ArrayList;
 
 public class Game implements Runnable {
 
@@ -26,7 +25,7 @@ public class Game implements Runnable {
 
 	public static Level currentLevel;
 	public static Map currentMap;
-	public static Character currentCharacter;
+	public static Player player;
 
 	Game(int w, int h, int s) {
 		width = w;
@@ -44,8 +43,8 @@ public class Game implements Runnable {
 		Creatures.init();
 		Projectiles.init();
 		Maps.init();
-		Characters.init();
 		Levels.init();
+		player = new Player();
 
 		Levels.changeLevel(0);
 	}
@@ -54,7 +53,7 @@ public class Game implements Runnable {
 		km.update();
 
 		currentMap.update();
-		currentCharacter.update();
+		player.update();
 		Creatures.update();
 		Projectiles.update();
 	}
@@ -70,7 +69,7 @@ public class Game implements Runnable {
 		// draw here
 
 		currentMap.draw(g);
-		currentCharacter.draw(g);
+		player.draw(g);
 		Creatures.draw(g);
 		Projectiles.draw(g);
 		Hud.drawHUD(g);
