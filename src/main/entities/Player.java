@@ -11,7 +11,7 @@ public class Player extends Entity {
 	private int hp, maxHp;
 
 	public Player() {
-		this.maxHp = 100;
+		this.maxHp = 1000;
 		this.hp = maxHp;
 		this.range = 200;
 		setX(0);

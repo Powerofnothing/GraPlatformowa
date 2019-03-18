@@ -59,10 +59,15 @@ public class Creature extends Entity {
 		setY(getY() + vy);
 		if (shootingTimer <= 0 && getX() + Game.player.getTexture().getWidth() - Game.player.getX() <= range) {
 			shootingTimer += shootingCooldown;
+			double yy = Game.player.getY() + Game.player.getTexture().getHeight() / 2 - Projectiles.getProjectileFromList(projectileId).getTexture().getHeight() / 2;
+			if (yy > getY() + getTexture().getHeight() - 1 - (1 + Projectiles.getProjectileFromList(projectileId).getTexture().getHeight()) / 2)
+				yy = getY() + getTexture().getHeight() - 1 - (1 + Projectiles.getProjectileFromList(projectileId).getTexture().getHeight()) / 2;
+			else if( yy < getY())
+				yy = getY();
 			if (Game.player.getX() < this.getX()) {
-				Projectiles.newProjectile(projectileId, range, -1, getX() + (getTexture().getWidth() >> 1), getY() + (getTexture().getHeight() >> 1));
+				Projectiles.newProjectile(projectileId, range, -1, getX() + (getTexture().getWidth() >> 1), yy);
 			} else {
-				Projectiles.newProjectile(projectileId, range, 1, getX() + (getTexture().getWidth() >> 1), getY() + (getTexture().getHeight() >> 1));
+				Projectiles.newProjectile(projectileId, range, 1, getX() + (getTexture().getWidth() >> 1), yy);
 			}
 		}
 		if (shootingTimer > 0)
