@@ -6,16 +6,17 @@ import main.resources.ResourceLoader;
 
 public class Player extends Entity {
 
-	private double vx, vy;
+	private double vx, vy, range;
 	private int shootingCooldown = 60; //TICKS
 	private int hp, maxHp;
 
 	public Player() {
 		this.maxHp = 100;
 		this.hp = maxHp;
+		this.range = 200;
 		setX(0);
 		setY(0);
-		setTexture(ResourceLoader.loadImage("/textures/player.png"));
+		setTexture(ResourceLoader.loadImage("/textures/mage.png"));
 	}
 
 	public void reset(int x, int y) {
@@ -66,10 +67,10 @@ public class Player extends Entity {
 		if (shootingCooldown <= 0) {
 			if (Game.km.shootRight) {
 				shootingCooldown += 60;
-				Projectiles.newProjectile(0, 1, getX() + (getTexture().getWidth() >> 1), getY() + (getTexture().getHeight() >> 1));
+				Projectiles.newProjectile(0, range, 1, getX() + (getTexture().getWidth() >> 1), getY() + (getTexture().getHeight() >> 1));
 			} else if (Game.km.shootLeft) {
 				shootingCooldown += 60;
-				Projectiles.newProjectile(0, -1, getX() + (getTexture().getWidth() >> 1), getY() + (getTexture().getHeight() >> 1));
+				Projectiles.newProjectile(0, range, -1, getX() + (getTexture().getWidth() >> 1), getY() + (getTexture().getHeight() >> 1));
 			}
 		}
 		if (shootingCooldown > 0)

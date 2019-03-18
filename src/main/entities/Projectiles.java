@@ -13,8 +13,8 @@ public class Projectiles {
 		projectilesList = new ArrayList<>();
 		projectiles = new ArrayList<>();
 		projectilesToRemove = new ArrayList<>();
-		projectilesList.add(new Projectile(0, 0, 50, 2.5, 200, "/textures/fireball.png"));
-		projectilesList.add(new Projectile(1, 1, 50, 2.5, 300, "/textures/fireballblue.png"));
+		projectilesList.add(new Projectile(0, 0, 50, 2.5, "/textures/fireball.png"));
+		projectilesList.add(new Projectile(1, 1, 50, 2.5, "/textures/fireball-blue.png"));
 	}
 
 	public static void update() {
@@ -41,8 +41,8 @@ public class Projectiles {
 		return null;
 	}
 
-	static void newProjectile(int id, int dir, double x, double y) {
-		projectiles.add(new Projectile(id));
+	static void newProjectile(int id, double range, int dir, double x, double y) {
+		projectiles.add(new Projectile(id, range));
 		projectiles.get(projectiles.size() - 1).setX(x - (projectilesList.get(id).getTexture().getWidth() >> 1));
 		projectiles.get(projectiles.size() - 1).setY(y - (projectilesList.get(id).getTexture().getHeight() >> 1));
 		projectiles.get(projectiles.size() - 1).setVx(projectiles.get(projectiles.size() - 1).getVx() * dir);

@@ -13,8 +13,8 @@ public class Creatures {
 		creaturesList = new ArrayList<>();
 		creatures = new ArrayList<>();
 		creaturesToRemove = new ArrayList<>();
-		creaturesList.add(new Creature(0, 100, 13 * 16 + 1, 14 * 16 + 1, 50, 1.5, 1, 120, "/textures/enemy1.png"));
-		creaturesList.add(new Creature(1, 500, 850, 850, 50, 0, 1, 60, "/textures/boss1.png"));
+		creaturesList.add(new Creature(0, 100, 13 * 16 + 1, 14 * 16 + 1, 50, 0.8, 250, 1, 120, "/textures/enemy1.png"));
+		creaturesList.add(new Creature(1, 500, 850, 850, 50, 0, 400, 1, 60, "/textures/boss1.png"));
 	}
 
 	public static void update() {

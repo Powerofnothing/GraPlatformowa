@@ -11,13 +11,15 @@ public class Creature extends Entity {
 	private int projectileId;
 	private int shootingCooldown;
 	private int shootingTimer;
+	private int range;
 
-	Creature(int id, int hp, double x1, double x2, double y, double vx, int projectileId, int shootingCooldown, String path) {
+	Creature(int id, int hp, double x1, double x2, double y, double vx, int range, int projectileId, int shootingCooldown, String path) {
 		this.id = id;
 		this.x1 = x1;
 		this.x2 = x2;
 		this.vx = vx;
 		this.hp = hp;
+		this.range = range;
 		this.projectileId = projectileId;
 		this.shootingCooldown = shootingCooldown;
 		setX(x1);
@@ -31,6 +33,7 @@ public class Creature extends Entity {
 		this.x2 = Creatures.getCreatureFromList(id).getX2();
 		this.vx = Creatures.getCreatureFromList(id).getVx();
 		this.hp = Creatures.getCreatureFromList(id).getHp();
+		this.range = Creatures.getCreatureFromList(id).getRange();
 		this.projectileId = Creatures.getCreatureFromList(id).getProjectileId();
 		this.shootingCooldown = Creatures.getCreatureFromList(id).getShootingCooldown();
 		this.shootingTimer = shootingCooldown;
@@ -54,12 +57,12 @@ public class Creature extends Entity {
 		}
 		setX(getX() + vx);
 		setY(getY() + vy);
-		if (shootingTimer <= 0) {
+		if (shootingTimer <= 0 && getX() + Game.player.getTexture().getWidth() - Game.player.getX() <= range) {
 			shootingTimer += shootingCooldown;
 			if (Game.player.getX() < this.getX()) {
-				Projectiles.newProjectile(projectileId, -1, getX() + (getTexture().getWidth() >> 1), getY() + (getTexture().getHeight() >> 1));
+				Projectiles.newProjectile(projectileId, range, -1, getX() + (getTexture().getWidth() >> 1), getY() + (getTexture().getHeight() >> 1));
 			} else {
-				Projectiles.newProjectile(projectileId, 1, getX() + (getTexture().getWidth() >> 1), getY() + (getTexture().getHeight() >> 1));
+				Projectiles.newProjectile(projectileId, range, 1, getX() + (getTexture().getWidth() >> 1), getY() + (getTexture().getHeight() >> 1));
 			}
 		}
 		if (shootingTimer > 0)
@@ -98,5 +101,9 @@ public class Creature extends Entity {
 
 	private int getShootingCooldown() {
 		return shootingCooldown;
+	}
+
+	private int getRange() {
+		return range;
 	}
 }

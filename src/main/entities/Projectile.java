@@ -10,20 +10,19 @@ public class Projectile extends Entity {
 	private int damage = 50;
 	private int type = 1; // 0 - ignores player, 1 - ignores creatures
 
-	Projectile(int id, int type, int damage, double vx, double range, String path) {
+	Projectile(int id, int type, int damage, double vx, String path) {
 		this.id = id;
 		this.type = type;
 		this.vx = vx;
-		this.range = range;
 		this.damage = damage;
 		setTexture(ResourceLoader.loadImage(path));
 	}
 
-	Projectile(int id) {
+	Projectile(int id, double range) {
 		this.id = Projectiles.getProjectileFromList(id).getId();
 		this.type = Projectiles.getProjectileFromList(id).getType();
 		this.vx = Projectiles.getProjectileFromList(id).getVx();
-		this.range = Projectiles.getProjectileFromList(id).getRange();
+		this.range = range;
 		this.damage = Projectiles.getProjectileFromList(id).getDamage();
 		setTexture(Projectiles.getProjectileFromList(id).getTexture());
 	}
