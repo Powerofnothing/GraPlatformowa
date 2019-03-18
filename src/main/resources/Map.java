@@ -91,4 +91,8 @@ public class Map {
 	public int getPlayerY() {
 		return playerY;
 	}
+
+	public int getWidth() {
+		return width * Maps.defaultTileWidth;
+	}
 }

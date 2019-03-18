@@ -45,13 +45,13 @@ public class Player extends Entity {
 		//right
 		if (Game.km.right && vx < 1.6)
 			vx += 0.2;
-		if (checkMapCollision(1, vx, vy) && vx > 0)
+		if ((checkMapCollision(1, vx, vy) || (getX() + getTexture().getWidth() >= Game.currentMap.getWidth())) && vx > 0)
 			vx = 0;
 
 		//left
 		if (Game.km.left && vx > -1.6)
 			vx -= 0.2;
-		if (checkMapCollision(3, vx, vy) && vx < 0)
+		if ((checkMapCollision(3, vx, vy) || (getX() <= 0)) && vx < 0)
 			vx = 0;
 
 		//stop
