@@ -51,7 +51,6 @@ public class Game implements Runnable {
 
 	private void update() {
 		km.update();
-
 		currentMap.update();
 		player.update();
 		Creatures.update();

@@ -12,6 +12,7 @@ public class Levels {
 	public static void init() {
 		levels = new ArrayList<>();
 		levels.add(new Level(0, "/levels/level0"));
+		levels.add(new Level(1, "/levels/level1"));
 	}
 
 	public static Level getLevel(int id) {
