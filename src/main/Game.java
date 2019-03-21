@@ -22,7 +22,6 @@ public class Game implements Runnable {
 
 	public static int width, height, scale;
 	public static KeyManager km;
-
 	public static Level currentLevel;
 	public static Map currentMap;
 	public static Player player;
